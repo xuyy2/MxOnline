@@ -23,3 +23,15 @@ class UserProfile(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class EmailVerifyRecord(models.Model):
+    send_choices = (
+        ('register', '注册'),
+        ('forget', '找回密码'),
+    )
+
+    code = models.CharField('验证码', max_length=20)
+    email = models.EmailField('邮箱', max_length=50)
+    send_type = models.CharField(choices=send_choices, max_length=10)
+    send_time = models.DateTimeField(auto_now=True)
